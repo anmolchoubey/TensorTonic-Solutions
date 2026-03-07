@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 def percentiles(x, q):
     """
@@ -11,23 +12,29 @@ def percentiles(x, q):
     print(x)
     result = []
     for value in q:
-        if value==100:
-            result.append(x[n-1])
-        elif value==0:
-            result.append(x[0])
-        elif n==1:
-            result.append(x[0])
-        else:
-            index = value/100*(n-1)
+        # if value==100:
+        #     result.append(x[n-1])
+        # elif value==0:
+        #     result.append(x[0])
+        # elif n==1:
+        #     result.append(x[0])
+        # else:
+        index = value/100*(n-1)
             #print(value)
-            print(index)
-            lower = x[int(index)]
+        print(index)
+        lower = math.floor(index)
             #print(lower)
-            upper = x[int(index)+1]
+        upper =math.ceil(index)
+
+        if lower==upper:
+            result.append(x[lower])
+            continue
             #print(upper)
-            weight = index - int(index)
+        weight = index-lower
+        lower_val = x[lower]
+        upper_val = x[upper]
             #print(weight)
-            result.append(lower + (upper - lower)*weight)
+        result.append(lower_val + (upper_val - lower_val)*weight)
     return np.array(result)
     #return np.array(x)
     
